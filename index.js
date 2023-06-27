@@ -6,8 +6,8 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-const credentialList = [];
-
+let credentialList = [];
+readFromFile();
 
 app.post('/signup', (req, res) => {
     const { fullName, email, contact, password, add } = req.body;
@@ -66,6 +66,7 @@ function readFromFile(){
         }
         else{
             console.log(data.toString());
+            credentialList = JSON.parse(data.toString());
         }
     })
 }
