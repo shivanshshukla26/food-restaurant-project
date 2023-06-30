@@ -21,6 +21,12 @@ app.post('/signup', async(req, res) => {
         res.json({ message: "please enter valid details" });
         return;
     } else {
+        const result = await db.collection('user-cred').find({email}).toArray();
+        console.log(result);
+        if(result.length){
+            res.json({message : 'user already exists'});
+            return;
+        }
         const user = {fullName, email, contact, password, add};
         await db.collection('user-cred').insertOne(user);
 
