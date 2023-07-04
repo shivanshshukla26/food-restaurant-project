@@ -5,7 +5,16 @@ const passwordElement = document.getElementById('password');
 const addElement = document.getElementById('add');
 const loginEmailElement = document.getElementById('loginEmailId');
 const loginPasswordElement = document.getElementById('loginPassword');
+const forgotPassEmailIdElement = document.getElementById('forgotPassEmailId');
+const forgotPassPhoneNumberElement = document.getElementById('forgotPassPhoneNumber');
+const newPasswordElement = document.getElementById('newPassword');
 
+
+axios.get('http://localhost:3001/getRestaurant').then((result) => {
+    console.log(result);
+}).catch((err) => {
+    console.log(err);
+})
 
 
 function signup() {
@@ -42,6 +51,26 @@ function login(){
     alert(result.data.message);
     document.getElementById('loginEmailId').value = '';
     document.getElementById('loginPassword').value = '';
+
+    }).catch((err) => {
+        console.log(err);
+    });
+}
+
+function forgotPass(){
+    console.log(loginEmailElement.value, loginPasswordElement.value);
+    const data = {
+        email : forgotPassEmailIdElement.value, 
+        phoneNumber : forgotPassPhoneNumberElement.value,
+        newPassword : newPasswordElement.value 
+
+    }
+    axios.post('http://localhost:3001/forgotPassword', data).then((result) =>{
+    console.log(result);
+    alert(result.data.message);
+    document.getElementById('forgotPassEmailId').value = '';
+    document.getElementById('newPassword').value = '';
+    document.getElementById('forgotPassPhoneNumber').value = '';
 
     }).catch((err) => {
         console.log(err);
