@@ -12,6 +12,13 @@ const newPasswordElement = document.getElementById('newPassword');
 
 axios.get('http://localhost:3001/getRestaurant').then((result) => {
     console.log(result);
+    const restoSelectElement = document.getElementById('restoSelect');
+    result.data.result.forEach(eachResto =>{
+        const optionTag = document.createElement('option');
+        optionTag.text = eachResto.restaurantName + ", " + eachResto.details.address;
+        optionTag.value = eachResto._id;
+        restoSelectElement.append(optionTag);
+    })
 }).catch((err) => {
     console.log(err);
 })
@@ -75,4 +82,24 @@ function forgotPass(){
     }).catch((err) => {
         console.log(err);
     });
+}
+
+function displayFood() {
+    const restoSeclectElement = document.getElementById('restoSelect');
+    axios.get(`http://localhost:3001/getRestaurant?id=${restoSeclectElement.value}`).then((result) => {
+        console.log(result);
+        const foodListcontainer = document.getElementById('food-list');
+        foodListcontainer.innerHTML = '';
+        const foodItems = result.data.data[0].foodItems;
+        console.log(foodItems);
+        for(const key in foodItems){ 
+            foodItems[`${key}`].forEach(foodItem => {
+                const foodElement = document.createElement('div');
+                foodElement.innerHTML = `<span>${foodItem.name} - Rs ${foodItem.price}<span> <button> add to cart </button>`;
+                foodListcontainer.appendChild(foodElement);
+            });   
+        }
+    }).catch((err) => {
+    console.log(err);
+    })
 }

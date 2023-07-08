@@ -32,6 +32,18 @@
         <input  type="text" id="add" placeholder="Add"><br>
         <button onclick="signup()">Signup</button>
     </div>
+
+    <label> Choose restaurant
+        <select id="restoSelect">
+            <option value="0">----Select restaurant----</option>
+        </select>
+    </label>
+    <button onclick="displayFood()">Display food</button>
+
+    <div>Food Items</div>
+    <div id="food-list"></div>
+
+
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="script.js"></script>
 </body>
